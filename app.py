@@ -38,12 +38,6 @@ def handle_message(event):
     print(event)
     text = event.message.text
 
-    if (text == "last pp")
-    	 with open("released.txt", "r") as f:
-            for line in f:
-                if "pp" in line:
-                    reply_text = line
-
     if (text == "Hi" or text == "hi"):
         reply_text = "Hello"
         # Your user ID
