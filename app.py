@@ -37,8 +37,12 @@ def callback():
 def handle_message(event):
     print(event)
     text = event.message.text
+    if (text="last pp"):
+        with open("released.txt", "r")as f:
+            for text in f.readlines():
+                reply_text = text
 
-    if (text == "Hi" or text == "hi"):
+    elif (text == "Hi" or text == "hi"):
         reply_text = "Hello"
         # Your user ID
 
