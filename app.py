@@ -42,7 +42,7 @@ def handle_message(event):
     with open("released.txt", "r") as f:
             for line in f:
                 if "pp" in line:
-                    print(line)
+                    reply_text = line
 
     if (text == "Hi" or text == "hi"):
         reply_text = "Hello"
