@@ -37,7 +37,7 @@ def callback():
 def handle_message(event):
     print(event)
     text = event.message.text
-    if (text="last pp"):
+    if (text == "last pp"):
         with open("released.txt", "r")as f:
             for line in f.readlines():
                 if "pp" in line:
