@@ -39,8 +39,9 @@ def handle_message(event):
     text = event.message.text
     if (text="last pp"):
         with open("released.txt", "r")as f:
-            for text in f.readlines():
-                reply_text = text
+            for line in f.readlines():
+                if "pp" in line:
+                    reply_text = line
 
     elif (text == "Hi" or text == "hi"):
         reply_text = "Hello"
