@@ -43,16 +43,23 @@ def handle_message(event):
                 if "pp".upper() in line:
                     reply_text = line
 
-    elif (text == "Hi" or text == "hi"):
-        reply_text = "Hello"
-        # Your user ID
+    if (text == "last aos"):
+        with open("released.txt", "r") as f:
+            for line in f.readlines():
+                if "aos".upper() in line:
+                    reply_text = line
 
-    elif(text == "你好"):
-        reply_text = "哈囉"
-    elif(text == "機器人"):
-        reply_text = "叫我嗎"
+    # elif (text == "Hi" or text == "hi"):
+    #     reply_text = "Hello"
+    #     # Your user ID
+    #
+    # elif(text == "你好"):
+    #     reply_text = "哈囉"
+    # elif(text == "機器人"):
+    #     reply_text = "叫我嗎"
     else:
-        reply_text = text
+        # reply_text = text
+        pass
 
     message = TextSendMessage(reply_text)
     line_bot_api.reply_message(event.reply_token, message)
