@@ -33,6 +33,21 @@ def callback():
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    print(event)
+    text=event.message.text
+
+    if (text=="Hi"):
+        reply_text = "Hello"
+        #Your user ID
+
+    elif(text=="你好"):
+        reply_text = "哈囉"
+    elif(text=="機器人"):
+        reply_text = "叫我嗎"
+    else:
+        reply_text = text
+    
+    
     message = TextSendMessage(text=event.message.text)
     line_bot_api.reply_message(event.reply_token, message)
 
