@@ -1,2 +1,2 @@
-Last PP version is 3.94.
+Last PP version is 3.95.
 Last AOS version is 15.1.80.
