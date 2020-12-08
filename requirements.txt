@@ -1,2 +1,5 @@
 line-bot-sdk
 flask
+pandas
+numpy
+requests
