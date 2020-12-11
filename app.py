@@ -50,11 +50,11 @@ def handle_message(event):
     text = event.message.text
     if ("[請假通知]" in text):
         m = re.findall(r"(:)(\s\S+..+)", text)
-        reply_text = "姓名"+m[0][1]+"\n" + \
-                     "假別"+m[2][1]+"\n" + \
-                     "請假起始日"+m[1][1][0:-2]+"\n" + \
-                     "請假迄止日"+m[1][1][0:-2]+"\n" + \
-                     "時段"+m[1][1][-2:]
+        reply_text = "姓名: "+m[0][1]+"\n" + \
+                     "假別: "+m[2][1]+"\n" + \
+                     "請假起始日: "+m[1][1][0:-2]+"\n" + \
+                     "請假迄止日: "+m[1][1][0:-2]+"\n" + \
+                     "時段: "+m[1][1][-2:]
 
     if (text == "last pp"):
         with open("released.txt", "r") as f:
