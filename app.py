@@ -49,8 +49,8 @@ def handle_message(event):
     print(event)
     text = event.message.text
     if ("[請假通知]" in text):
-        m = re.split(r"\n", text)
-        reply_text = m[2:5]
+        m = re.findall(r"(:)(\s\S+..+)", text)
+        reply_text = m[0][1]
 
     if (text == "last pp"):
         with open("released.txt", "r") as f:
