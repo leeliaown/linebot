@@ -1,5 +1,6 @@
 import os
 from flask import Flask, request, abort
+import pandas as pd
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -37,6 +38,9 @@ def callback():
 def handle_message(event):
     print(event)
     text = event.message.text
+    if (text in "[請假通知]"):
+        reply_text = text
+
     if (text == "last pp"):
         with open("released.txt", "r") as f:
             for line in f.readlines():
