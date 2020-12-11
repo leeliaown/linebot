@@ -39,9 +39,8 @@ def handle_message(event):
     print(event)
     text = event.message.text
     if ("[請假通知]" in text):
-        df = pd.DataFrame(text)
-        df.to_csv('test.csv', index=False)
-        reply_text = text
+
+        reply_text = text[0:2]
 
     if (text == "last pp"):
         with open("released.txt", "r") as f:
