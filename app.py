@@ -38,7 +38,7 @@ def callback():
 def handle_message(event):
     print(event)
     text = event.message.text
-    if (text in "[請假通知]"):
+    if ("[請假通知]" in text):
         reply_text = text
 
     if (text == "last pp"):
