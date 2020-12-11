@@ -1,6 +1,7 @@
 import os
 from flask import Flask, request, abort
 import pandas as pd
+import re
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -33,14 +34,23 @@ def callback():
         abort(400)
     return 'OK'
 
+
+def process_string(keyword):
+    flex_msg = {
+        'name': keyword[0:3],
+        'leave': keyword[0:6],
+        'leave_time': keyword[0:10],
+        'period': keyword[0:15]
+    }
+
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     print(event)
     text = event.message.text
     if ("[請假通知]" in text):
-
-        reply_text = text[0:2]
+        m = re.split(r"\n", text)
+        reply_text = m[2:5]
 
     if (text == "last pp"):
         with open("released.txt", "r") as f:
