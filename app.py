@@ -50,7 +50,7 @@ def handle_message(event):
     text = event.message.text
     if ("[請假通知]" in text):
         m = re.findall(r"\d{1,2}", text)
-        reply_text = m[0]+"/"m[1]
+        reply_text = m[0]+"/"+m[1]
 
         # "姓名: "+m[0][1]+"\n" + \
         #              "假別: "+m[2][1]+"\n" + \
