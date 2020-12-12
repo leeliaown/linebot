@@ -39,6 +39,8 @@ def leave(keyword):
 
     time = re.findall(r"\d{1,2}", keyword[2])
 
+    period = re.findall(r"\b\w{1,2}\b", keyword[2])
+
     if len(time) > 2:
 
         if keyword[2][-2:] == "上午" or keyword[2][-2:] == "下午":
@@ -48,7 +50,7 @@ def leave(keyword):
                 keyword[3][-3:],
                 time[0]+"/"+time[1],
                 time[2]+"/"+time[3],
-                keyword[2][-2:],
+                period[3],
             ]
 
         else:
