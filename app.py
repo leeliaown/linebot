@@ -51,8 +51,8 @@ def leave(keyword):
                 keyword[2][-2:],
             ]
 
-         else:
-            
+        else:
+
             flex_msg = [
                 keyword[1][4:],
                 keyword[3][-3:],
