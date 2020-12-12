@@ -35,13 +35,56 @@ def callback():
     return 'OK'
 
 
-def process_string(keyword):
-    flex_msg = {
-        'name': keyword[0:3],
-        'leave': keyword[0:6],
-        'leave_time': keyword[0:10],
-        'period': keyword[0:15]
-    }
+def leave(keyword):
+
+    time = re.findall(r"\d{1,2}", keyword[2])
+
+    if len(time) > 2:
+
+        if keyword[2][-2:] == "上午" or keyword[2][-2:] == "下午":
+
+            flex_msg = [
+                keyword[1][4:],
+                keyword[3][-3:],
+                time[0]+"/"+time[1],
+                time[2]+"/"+time[3],
+                keyword[2][-2:],
+            ]
+
+    else:
+
+        if keyword[2][-2:] == "上午" or keyword[2][-2:] == "下午":
+
+            flex_msg = [
+                keyword[1][4:],
+                keyword[3][-3:],
+                time[0]+"/"+time[1],
+                time[0]+"/"+time[1],
+                keyword[2][-2:],
+            ]
+
+        else:
+
+            if "：" in keyword[3][-3:] or ":" in keyword[3][-3:]:
+
+                flex_msg = [
+                    keyword[1][4:],
+                    keyword[3][-2:],
+                    time[0]+"/"+time[1],
+                    time[0]+"/"+time[1],
+                    "",
+                ]
+
+            else:
+
+                flex_msg = [
+                    keyword[1][4:],
+                    keyword[3][-3:],
+                    time[0]+"/"+time[1],
+                    time[0]+"/"+time[1],
+                    "",
+                ]
+    return flex_msg
 
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
@@ -49,8 +92,9 @@ def handle_message(event):
     print(event)
     text = event.message.text
     if ("[請假通知]" in text):
-        m = re.findall(r"\d{1,2}", text)
-        reply_text = m[0]+"/"+m[1]
+        m = leave(text)
+        reply_text = "姓名: "+m[0]+"\n" +\
+                     "假別: "+m[1]+"\n"
 
         # "姓名: "+m[0][1]+"\n" + \
         #              "假別: "+m[2][1]+"\n" + \
