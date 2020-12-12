@@ -91,8 +91,8 @@ def handle_message(event):
     print(event)
     text = event.message.text
     if ("[請假通知]" in text):
-        time = re.findall("\d{1,2}", text[2])
-        reply_text = time
+        # time = re.findall("\d{1,2}", text[2])
+        reply_text = re.findall("\d{1,2}", text)
 
         # "姓名: "+m[0]+"\n" + \
         #              "假別: "+m[1]+"\n" + \
