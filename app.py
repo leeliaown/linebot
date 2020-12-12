@@ -67,14 +67,25 @@ def leave(keyword):
 
         if "上午" in keyword[2][-3:] or "下午" in keyword[2][-3:]:
 
-            flex_msg = [
-                keyword[1][4:],
-                keyword[3][-3:],
-                time[0]+"/"+time[1],
-                time[0]+"/"+time[1],
-                keyword[2][-3:].strip(")"),
-            ]
+            if "）" in keyword[2][-3:]:
 
+                flex_msg = [
+                    keyword[1][4:],
+                    keyword[3][-3:],
+                    time[0]+"/"+time[1],
+                    time[0]+"/"+time[1],
+                    keyword[2][-2:],
+                ]
+
+            else:
+
+                flex_msg = [
+                    keyword[1][4:],
+                    keyword[3][-3:],
+                    time[0]+"/"+time[1],
+                    time[0]+"/"+time[1],
+                    keyword[2][-3:].strip(")"),
+                ]
         else:
 
             if "：" in keyword[3][-3:] or ":" in keyword[3][-3:]:
