@@ -43,7 +43,7 @@ def leave(keyword):
 
     if len(time) > 2:
 
-        if keyword[2][-2:] == "上午" or keyword[2][-2:] == "下午":
+        if "上午" in keyword[2] or "下午" in keyword[2]:
 
             flex_msg = [
                 keyword[1][4:],
