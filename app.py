@@ -51,6 +51,16 @@ def leave(keyword):
                 keyword[2][-2:],
             ]
 
+         else:
+            
+            flex_msg = [
+                keyword[1][4:],
+                keyword[3][-3:],
+                time[0]+"/"+time[1],
+                time[2]+"/"+time[3],
+                "",
+            ]
+
     else:
 
         if keyword[2][-2:] == "上午" or keyword[2][-2:] == "下午":
