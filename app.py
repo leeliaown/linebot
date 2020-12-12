@@ -35,15 +35,6 @@ def callback():
     return 'OK'
 
 
-def process_string(keyword):
-    flex_msg = {
-        'name': keyword[0:3],
-        'leave': keyword[0:6],
-        'leave_time': keyword[0:10],
-        'period': keyword[0:15]
-    }
-
-
 def leave(keyword):
     time = re.findall("\d{1,2}", keyword[2])
 
@@ -93,10 +84,6 @@ def leave(keyword):
                     "",
                 ]
 
-    # print(time)
-    # print("：" in keyword[3][-3:])
-    # print("：" in keyword[3][-2:])
-    # print(keyword[2][-2:])
     return flex_msg
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
@@ -104,12 +91,14 @@ def handle_message(event):
     print(event)
     text = event.message.text
     if ("[請假通知]" in text):
-        m = leave(text)
-        reply_text = "姓名: "+m[0]+"\n" + \
-                     "假別: "+m[1]+"\n" + \
-                     "請假起始日: "+m[2]+"\n" + \
-                     "請假迄止日: "+m[3]+"\n" + \
-                     "時段: "+m[4]
+        time = re.findall("\d{1,2}", text[2])
+        reply_text = time
+
+        # "姓名: "+m[0]+"\n" + \
+        #              "假別: "+m[1]+"\n" + \
+        #              "請假起始日: "+m[2]+"\n" + \
+        #              "請假迄止日: "+m[3]+"\n" + \
+        #              "時段: "+m[4]
 
     if (text == "last pp"):
         with open("released.txt", "r") as f:
