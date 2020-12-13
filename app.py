@@ -91,35 +91,47 @@ def leave(keyword):
 
     else:
 
-        if "上午" in keyword[2]:
+        for k, v in leaves.items():
 
-            flex_msg = [
-                keyword[1][4:],
-                keyword[3][-3:],
-                time[0]+"/"+time[1],
-                time[0]+"/"+time[1],
-                "上午",
-            ]
+            if k in keyword[3]:
 
-        elif "下午" and "病假回診" in keyword[3]:
+                flex_msg = [
+                    keyword[1][4:],
+                    leaves[k],
+                    time[0]+"/"+time[1],
+                    time[0]+"/"+time[1],
+                    "",
+                ]
 
-            flex_msg = [
-                keyword[1][4:],
-                "病假",
-                time[0]+"/"+time[1],
-                time[0]+"/"+time[1],
-                "下午",
-            ]
+        # if "上午" in keyword[2]:
 
-        elif "下午" in keyword[2]:
+        #     flex_msg = [
+        #         keyword[1][4:],
+        #         keyword[3][-3:],
+        #         time[0]+"/"+time[1],
+        #         time[0]+"/"+time[1],
+        #         "上午",
+        #     ]
 
-            flex_msg = [
-                keyword[1][4:],
-                keyword[3][-3:],
-                time[0]+"/"+time[1],
-                time[0]+"/"+time[1],
-                "下午",
-            ]
+        # elif "下午" and "病假回診" in keyword[3]:
+
+        #     flex_msg = [
+        #         keyword[1][4:],
+        #         "病假",
+        #         time[0]+"/"+time[1],
+        #         time[0]+"/"+time[1],
+        #         "下午",
+        #     ]
+
+        # elif "下午" in keyword[2]:
+
+        #     flex_msg = [
+        #         keyword[1][4:],
+        #         keyword[3][-3:],
+        #         time[0]+"/"+time[1],
+        #         time[0]+"/"+time[1],
+        #         "下午",
+        #     ]
 
         else:
 
@@ -145,15 +157,15 @@ def leave(keyword):
                     "",
                 ]
 
-            else:
+            # else:
 
-                flex_msg = [
-                    keyword[1][4:],
-                    keyword[3][-3:],
-                    time[0]+"/"+time[1],
-                    time[0]+"/"+time[1],
-                    "",
-                ]
+            #     flex_msg = [
+            #         keyword[1][4:],
+            #         keyword[3][-3:],
+            #         time[0]+"/"+time[1],
+            #         time[0]+"/"+time[1],
+            #         "",
+            #     ]
     return flex_msg
 
 # 處理訊息
