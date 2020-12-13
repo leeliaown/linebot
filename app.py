@@ -35,6 +35,17 @@ def callback():
     return 'OK'
 
 
+leaves = {
+
+    "特休": "特休",
+    "特休假": "特休",
+    "病假回診": "病假",
+    "病假": "病假",
+    "陪產假": "陪產假",
+    "生理假": "生理假",
+}
+
+
 def leave(keyword):
 
     time = re.findall(r"\d{1,2}", keyword[2])
@@ -43,35 +54,40 @@ def leave(keyword):
 
     if len(time) > 2:
 
-        if "上午" in keyword[2]:
+        for k, v in leaves.items():
 
-            flex_msg = [
-                keyword[1][4:],
-                keyword[3][-3:],
-                time[0]+"/"+time[1],
-                time[2]+"/"+time[3],
-                "上午",
-            ]
+            if k and "上午" in keyword[3]:
 
-        elif "下午" in keyword[2]:
+                flex_msg = [
+                    keyword[1][4:],
+                    leaves[k],
+                    time[0]+"/"+time[1],
+                    time[2]+"/"+time[3],
+                    "上午",
+                ]
 
-            flex_msg = [
-                keyword[1][4:],
-                keyword[3][-3:],
-                time[0]+"/"+time[1],
-                time[2]+"/"+time[3],
-                "下午",
-            ]
+            elif k and "下午" in keyword[3]:
 
-        else:
+                flex_msg = [
+                    keyword[1][4:],
+                    leaves[k],
+                    time[0]+"/"+time[1],
+                    time[2]+"/"+time[3],
+                    "下午",
+                ]
 
-            flex_msg = [
-                keyword[1][4:],
-                keyword[3][-3:],
-                time[0]+"/"+time[1],
-                time[2]+"/"+time[3],
-                "",
-            ]
+            else:
+                for k, v in leaves.items():
+
+                    if k in keyword[3]:
+
+                        flex_msg = [
+                            keyword[1][4:],
+                            leaves[k],
+                            time[0]+"/"+time[1],
+                            time[2]+"/"+time[3],
+                            "",
+                        ]
 
     else:
 
