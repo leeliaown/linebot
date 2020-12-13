@@ -107,6 +107,18 @@ def leave(keyword):
                     "",
                 ]
 
+            elif "。" and "特休假" in keyword[3]:
+
+                a = keyword[3].strip("。")
+
+                flex_msg = [
+                    keyword[1][4:],
+                    a[-3:-1],
+                    time[0]+"/"+time[1],
+                    time[0]+"/"+time[1],
+                    "",
+                ]
+
             else:
 
                 flex_msg = [
