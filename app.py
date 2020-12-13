@@ -85,14 +85,24 @@ def leave(keyword):
                 "上午",
             ]
 
-        elif "下午" in keyword[2]:
-
+         elif "下午" and "病假回診" in keyword[3]:
+         
             flex_msg = [
                 keyword[1][4:],
-                keyword[3][-3:],
+                "病假",
                 time[0]+"/"+time[1],
                 time[0]+"/"+time[1],
                 "下午",
+             ]
+        
+        elif "下午" in keyword[2]:
+            
+            flex_msg = [
+               keyword[1][4:],
+               keyword[3][-3:],
+               time[0]+"/"+time[1],
+               time[0]+"/"+time[1],
+               "下午",
             ]
 
         else:
