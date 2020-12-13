@@ -93,14 +93,24 @@ def leave(keyword):
 
         for k, v in leaves.items():
 
-            if k in keyword[3]:
+            if k in keyword[3] and "上午" in keyword[2]:
 
                 flex_msg = [
                     keyword[1][4:],
                     leaves[k],
                     time[0]+"/"+time[1],
                     time[0]+"/"+time[1],
-                    "",
+                    "上午",
+                ]
+
+            elif k in keyword[3] and "下午" in keyword[2]:
+
+                flex_msg = [
+                    keyword[1][4:],
+                    leaves[k],
+                    time[0]+"/"+time[1],
+                    time[0]+"/"+time[1],
+                    "下午",
                 ]
 
         # if "上午" in keyword[2]:
