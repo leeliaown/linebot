@@ -81,7 +81,7 @@ def leave(keyword):
             else:
                 for k, v in leaves.items():
 
-                    if k in keyword[2]:
+                    if k in keyword[4]:
 
                         flex_msg = [
                             keyword[1][4:],
