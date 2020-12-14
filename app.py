@@ -46,13 +46,12 @@ leaves = {
     "事假": "事假",
     "身體不適": "病假",
 }
+time = re.findall(r"\d{1,2}", keyword[2])
+
+period = re.findall(r"\b\w{1,2}\b", keyword[2])
 
 
 def leave(keyword):
-
-    time = re.findall(r"\d{1,2}", keyword[2])
-
-    period = re.findall(r"\b\w{1,2}\b", keyword[2])
 
     if len(time) > 2:
 
