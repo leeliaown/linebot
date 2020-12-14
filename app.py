@@ -114,6 +114,17 @@ def leave(keyword):
                     "下午",
                 ]
 
+            elif k in keyword[3]:
+
+                flex_msg = [
+                    keyword[1][4:],
+                    leaves[k],
+                    time[0]+"/"+time[1],
+                    time[0]+"/"+time[1],
+                    "",
+
+                ]
+
         # if "上午" in keyword[2]:
 
         #     flex_msg = [
@@ -144,29 +155,29 @@ def leave(keyword):
         #         "下午",
         #     ]
 
-        else:
+        # else:
 
-            if "：" in keyword[3][-3:] or ":" in keyword[3][-3:]:
+        #     if "：" in keyword[3][-3:] or ":" in keyword[3][-3:]:
 
-                flex_msg = [
-                    keyword[1][4:],
-                    keyword[3][-2:],
-                    time[0]+"/"+time[1],
-                    time[0]+"/"+time[1],
-                    "",
-                ]
+        #         flex_msg = [
+        #             keyword[1][4:],
+        #             keyword[3][-2:],
+        #             time[0]+"/"+time[1],
+        #             time[0]+"/"+time[1],
+        #             "",
+        #         ]
 
-            elif "。" and "特休假" in keyword[3]:
+        #     elif "。" and "特休假" in keyword[3]:
 
-                a = keyword[3].strip("。")
+        #         a = keyword[3].strip("。")
 
-                flex_msg = [
-                    keyword[1][4:],
-                    a[-3:-1],
-                    time[0]+"/"+time[1],
-                    time[0]+"/"+time[1],
-                    "",
-                ]
+        #         flex_msg = [
+        #             keyword[1][4:],
+        #             a[-3:-1],
+        #             time[0]+"/"+time[1],
+        #             time[0]+"/"+time[1],
+        #             "",
+        #         ]
 
             # else:
 
