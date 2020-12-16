@@ -98,17 +98,17 @@ def handle_message(event):
     if ("[請假通知]" in text):
 
         m = re.findall(r"\w....+", text)
-        period = re.findall(r"\b\w{1,2}\b", m)
+        period = re.findall(r"\b\w{1,2}\b", text)
 
         period_set = set(period)
         periods_set = set(periods)
         period_intersection = list(period_set.intersection(periods_set))
 
-        time = re.findall(r"\d{1,2}", m)
+        time = re.findall(r"\d{1,2}", text)
 
-        name = re.findall(r"([a-zA-z].*\s[a-zA-z].*)", m)
+        name = re.findall(r"([a-zA-z].*\s[a-zA-z].*)", text)
 
-        leave_1 = re.findall(r"\b[^\W\sa-zA-Z0-9]{2,4}\b", m)
+        leave_1 = re.findall(r"\b[^\W\sa-zA-Z0-9]{2,4}\b", text)
         leave_set = set(leave_1)
         leaves_set = set(leaves)
         leaves_intersection = list(leave_set.intersection(leaves_set))
