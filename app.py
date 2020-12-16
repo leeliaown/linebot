@@ -122,11 +122,18 @@ def handle_message(event):
                         )
 
         if period_intersection:
-            reply_text = "姓名: "+k[0]+"\n" +\
-                         "假別: "+k[1]+"\n" +\
-                         "請假起始日: "+k[2]+"\n" +\
-                         "請假迄止日: "+k[3]+"\n" +\
-                         "時段: "+k[4]
+            # reply_text = "姓名: "+k[0]+"\n" +\
+            #              "假別: "+k[1]+"\n" +\
+            #              "請假起始日: "+k[2]+"\n" +\
+            #              "請假迄止日: "+k[3]+"\n" +\
+            #              "時段: "+k[4]
+            reply_text = pd.DataFrame(index=cols,
+                                      data=leaves_func(name[0],
+                                                       leaves[leaves_intersection[0]],
+                                                       time,
+                                                       period_intersection[0]))
+
+            reply_text = reply_text.to_string(index_names=False)
 
         else:
             reply_text = pd.DataFrame(index=cols,
