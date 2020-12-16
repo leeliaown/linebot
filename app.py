@@ -50,6 +50,8 @@ leaves = {
 
 periods = {"上午": "上午", "下午": "下午"}
 
+cols = ['姓名', '假別', '請假起始日', '請假迄止日', '時段', ]
+
 
 def leaves_func(name, leave=0, time=0, period=""):
 
@@ -127,11 +129,13 @@ def handle_message(event):
                          "時段: "+k[4]
 
         else:
-            reply_text = "姓名: "+k[0]+"\n" +\
-                         "假別: "+k[1]+"\n" +\
-                         "請假起始日: "+k[2]+"\n" +\
-                         "請假迄止日: "+k[3]+"\n" +\
-                         "時段: "
+            reply_text = pd.DataFrame(index=cols,
+                                      data=leaves_func(name[0],
+                                                       leaves[leaves_intersection[0]],
+                                                       time,
+                                                       ))
+
+            reply_text = reply_text.to_string()
 
         # "姓名: "+m[0][1]+"\n" + \
         #              "假別: "+m[2][1]+"\n" + \
