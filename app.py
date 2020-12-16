@@ -135,7 +135,7 @@ def handle_message(event):
                                                        time,
                                                        ))
 
-            reply_text = reply_text.to_string()
+            reply_text = reply_text.to_string(index=False)
 
         # "姓名: "+m[0][1]+"\n" + \
         #              "假別: "+m[2][1]+"\n" + \
