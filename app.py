@@ -45,150 +45,49 @@ leaves = {
     "生理假": "生理假",
     "事假": "事假",
     "身體不適": "病假",
+    "回診": "病假",
 }
 
+periods = {"上午": "上午", "下午": "下午"}
 
-def leave(keyword):
 
-    time = re.findall(r"\d{1,2}", keyword[2])
-
-    period = re.findall(r"\b\w{1,2}\b", keyword[2])
+def leaves_func(name, leave=0, time=0, period=""):
 
     if len(time) > 2:
 
-        for k, v in leaves.items():
+        flex_msg = [
 
-            if k in keyword[3] and "上午" in keyword[2]:
-
-                flex_msg = [
-                    keyword[1][4:],
-                    leaves[k],
-                    time[0]+"/"+time[1],
-                    time[2]+"/"+time[3],
-                    "上午",
-                ]
-
-            elif k in keyword[3] and "下午" in keyword[2]:
-
-                flex_msg = [
-                    keyword[1][4:],
-                    leaves[k],
-                    time[0]+"/"+time[1],
-                    time[2]+"/"+time[3],
-                    "下午",
-                ]
-
-            else:
-                for k, v in leaves.items():
-
-                    if k in keyword[4]:
-
-                        flex_msg = [
-                            keyword[1][4:],
-                            leaves[k],
-                            time[0]+"/"+time[1],
-                            time[2]+"/"+time[3],
-                            "",
-                        ]
+            name,
+            leave,
+            time[0]+"/"+time[1],
+            time[2]+"/"+time[3],
+            period,
+        ]
 
     else:
 
-        for k, v in leaves.items():
+        if period:
 
-            if k in keyword[3] and "上午" in keyword[2]:
+            flex_msg = [
 
-                flex_msg = [
-                    keyword[1][4:],
-                    leaves[k],
-                    time[0]+"/"+time[1],
-                    time[0]+"/"+time[1],
-                    "上午",
-                ]
+                name,
+                leave,
+                time[0]+"/"+time[1],
+                time[0]+"/"+time[1],
+                period,
+            ]
 
-            elif k in keyword[3] and "下午" in keyword[2]:
+        else:
 
-                flex_msg = [
-                    keyword[1][4:],
-                    leaves[k],
-                    time[0]+"/"+time[1],
-                    time[0]+"/"+time[1],
-                    "下午",
-                ]
+            flex_msg = [
 
-            elif k in keyword[3]:
+                name,
+                leave,
+                time[0]+"/"+time[1],
+                time[0]+"/"+time[1],
+                "",
+            ]
 
-                flex_msg = [
-                    keyword[1][4:],
-                    leaves[k],
-                    time[0]+"/"+time[1],
-                    time[0]+"/"+time[1],
-                    "",
-
-                ]
-
-        # if "上午" in keyword[2]:
-
-        #     flex_msg = [
-        #         keyword[1][4:],
-        #         keyword[3][-3:],
-        #         time[0]+"/"+time[1],
-        #         time[0]+"/"+time[1],
-        #         "上午",
-        #     ]
-
-        # elif "下午" and "病假回診" in keyword[3]:
-
-        #     flex_msg = [
-        #         keyword[1][4:],
-        #         "病假",
-        #         time[0]+"/"+time[1],
-        #         time[0]+"/"+time[1],
-        #         "下午",
-        #     ]
-
-        # elif "下午" in keyword[2]:
-
-        #     flex_msg = [
-        #         keyword[1][4:],
-        #         keyword[3][-3:],
-        #         time[0]+"/"+time[1],
-        #         time[0]+"/"+time[1],
-        #         "下午",
-        #     ]
-
-        # else:
-
-        #     if "：" in keyword[3][-3:] or ":" in keyword[3][-3:]:
-
-        #         flex_msg = [
-        #             keyword[1][4:],
-        #             keyword[3][-2:],
-        #             time[0]+"/"+time[1],
-        #             time[0]+"/"+time[1],
-        #             "",
-        #         ]
-
-        #     elif "。" and "特休假" in keyword[3]:
-
-        #         a = keyword[3].strip("。")
-
-        #         flex_msg = [
-        #             keyword[1][4:],
-        #             a[-3:-1],
-        #             time[0]+"/"+time[1],
-        #             time[0]+"/"+time[1],
-        #             "",
-        #         ]
-
-            # else:
-
-            #     flex_msg = [
-            #         keyword[1][4:],
-            #         keyword[3][-3:],
-            #         time[0]+"/"+time[1],
-            #         time[0]+"/"+time[1],
-            #         "",
-            #     ]
     return flex_msg
 
 # 處理訊息
@@ -199,12 +98,40 @@ def handle_message(event):
     if ("[請假通知]" in text):
 
         m = re.findall(r"\w....+", text)
-        k = leave(m)
-        reply_text = "姓名: "+k[0]+"\n" +\
-                     "假別: "+k[1]+"\n" +\
-                     "請假起始日: "+k[2]+"\n" +\
-                     "請假迄止日: "+k[3]+"\n" +\
-                     "時段: "+k[4]
+        period = re.findall(r"\b\w{1,2}\b", m)
+
+        period_set = set(period)
+        periods_set = set(periods)
+        period_intersection = list(period_set.intersection(periods_set))
+
+        time = re.findall(r"\d{1,2}", m)
+
+        name = re.findall(r"([a-zA-z].*\s[a-zA-z].*)", m)
+
+        leave_1 = re.findall(r"\b[^\W\sa-zA-Z0-9]{2,4}\b", m)
+        leave_set = set(leave_1)
+        leaves_set = set(leaves)
+        leaves_intersection = list(leave_set.intersection(leaves_set))
+
+        k = leaves_func(name,
+                        leaves[leaves_intersection[0]],
+                        time,
+                        period_intersection,
+                        )
+
+        if period_intersection:
+            reply_text = "姓名: "+k[0]+"\n" +\
+                         "假別: "+k[1]+"\n" +\
+                         "請假起始日: "+k[2]+"\n" +\
+                         "請假迄止日: "+k[3]+"\n" +\
+                         "時段: "+k[4]
+
+        else:
+            reply_text = "姓名: "+k[0]+"\n" +\
+                         "假別: "+k[1]+"\n" +\
+                         "請假起始日: "+k[2]+"\n" +\
+                         "請假迄止日: "+k[3]+"\n" +\
+                         "時段: "+""
 
         # "姓名: "+m[0][1]+"\n" + \
         #              "假別: "+m[2][1]+"\n" + \

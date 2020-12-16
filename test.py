@@ -1,34 +1,152 @@
-import pandas as pd
+def leave(keyword):
 
+    time = re.findall(r"\d{1,2}", keyword[2])
 
-def process_string(keyword):
-    flex_msg = {
-        'name': keyword[0:3],
-        'leave': keyword[0:6],
-        'leave_time': keyword[0:10],
-        'period': keyword[0:15]
-    }
+    period = re.findall(r"\b\w{1,2}\b", keyword[2])
 
+    if len(time) > 2:
+
+        for k, v in leaves.items():
+
+            if k in keyword[3] and "上午" in keyword[2]:
+
+                flex_msg = [
+                    keyword[1][4:],
+                    leaves[k],
+                    time[0]+"/"+time[1],
+                    time[2]+"/"+time[3],
+                    "上午",
+                ]
+
+            elif k in keyword[3] and "下午" in keyword[2]:
+
+                flex_msg = [
+                    keyword[1][4:],
+                    leaves[k],
+                    time[0]+"/"+time[1],
+                    time[2]+"/"+time[3],
+                    "下午",
+                ]
+
+            else:
+                for k, v in leaves.items():
+
+                    if k in keyword[4]:
+
+                        flex_msg = [
+                            keyword[1][4:],
+                            leaves[k],
+                            time[0]+"/"+time[1],
+                            time[2]+"/"+time[3],
+                            "",
+                        ]
+
+                    else:
+
+                        flex_msg = [
+                            keyword[1][4:],
+                            leaves[k],
+                            time[0]+"/"+time[1],
+                            time[2]+"/"+time[3],
+                            "",
+                        ]
+
+    else:
+
+        for k, v in leaves.items():
+
+            if k in keyword[3] and "上午" in keyword[2]:
+
+                flex_msg = [
+                    keyword[1][4:],
+                    leaves[k],
+                    time[0]+"/"+time[1],
+                    time[0]+"/"+time[1],
+                    "上午",
+                ]
+
+            elif k in keyword[3] and "下午" in keyword[2]:
+
+                flex_msg = [
+                    keyword[1][4:],
+                    leaves[k],
+                    time[0]+"/"+time[1],
+                    time[0]+"/"+time[1],
+                    "下午",
+                ]
+
+            elif k in keyword[3]:
+
+                flex_msg = [
+                    keyword[1][4:],
+                    leaves[k],
+                    time[0]+"/"+time[1],
+                    time[0]+"/"+time[1],
+                    "",
+
+                ]
+
+        # if "上午" in keyword[2]:
+
+        #     flex_msg = [
+        #         keyword[1][4:],
+        #         keyword[3][-3:],
+        #         time[0]+"/"+time[1],
+        #         time[0]+"/"+time[1],
+        #         "上午",
+        #     ]
+
+        # elif "下午" and "病假回診" in keyword[3]:
+
+        #     flex_msg = [
+        #         keyword[1][4:],
+        #         "病假",
+        #         time[0]+"/"+time[1],
+        #         time[0]+"/"+time[1],
+        #         "下午",
+        #     ]
+
+        # elif "下午" in keyword[2]:
+
+        #     flex_msg = [
+        #         keyword[1][4:],
+        #         keyword[3][-3:],
+        #         time[0]+"/"+time[1],
+        #         time[0]+"/"+time[1],
+        #         "下午",
+        #     ]
+
+        # else:
+
+        #     if "：" in keyword[3][-3:] or ":" in keyword[3][-3:]:
+
+        #         flex_msg = [
+        #             keyword[1][4:],
+        #             keyword[3][-2:],
+        #             time[0]+"/"+time[1],
+        #             time[0]+"/"+time[1],
+        #             "",
+        #         ]
+
+        #     elif "。" and "特休假" in keyword[3]:
+
+        #         a = keyword[3].strip("。")
+
+        #         flex_msg = [
+        #             keyword[1][4:],
+        #             a[-3:-1],
+        #             time[0]+"/"+time[1],
+        #             time[0]+"/"+time[1],
+        #             "",
+        #         ]
+
+            # else:
+
+            #     flex_msg = [
+            #         keyword[1][4:],
+            #         keyword[3][-3:],
+            #         time[0]+"/"+time[1],
+            #         time[0]+"/"+time[1],
+            #         "",
+            #     ]
     return flex_msg
-
-
-s = "[請假通知] \
-姓名: joeytseng \
-請假日期: 12/11 (五)下午 \
-請假事由: 特休 \
-直屬主管: chris \
-職務代理人: chris \
-有急事請Line 或 電話聯絡，謝謝 !"
-
-# print(process_string(s))
-flex_msg = {
-    'name': s[0:3],
-    'leave': s[0:6],
-    'leave_time': s[0:10],
-    'period': s[0:15]
-
-}
-
-df = pd.Series(data=flex_msg)
-
-print(df.head())
