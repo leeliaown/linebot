@@ -108,7 +108,7 @@ def handle_message(event):
 
         time = re.findall(r"\d{1,2}", text)
 
-        name = re.findall(r"([a-zA-z].*\s[a-zA-z].*)", text)
+        name = re.findall(r"([a-zA-z].*(\S|\s)[a-zA-z].*)", text)
 
         leave_1 = re.findall(r"\b[^\W\sa-zA-Z0-9]{2,4}\b", text)
         leave_set = set(leave_1)
@@ -128,7 +128,7 @@ def handle_message(event):
             #              "請假迄止日: "+k[3]+"\n" +\
             #              "時段: "+k[4]
             reply_text = pd.DataFrame(index=cols,
-                                      data=leaves_func(name[0],
+                                      data=leaves_func(name[1][0],
                                                        leaves[leaves_intersection[0]],
                                                        time,
                                                        period_intersection[0]))
@@ -137,7 +137,7 @@ def handle_message(event):
 
         else:
             reply_text = pd.DataFrame(index=cols,
-                                      data=leaves_func(name[0],
+                                      data=leaves_func(name[1][0],
                                                        leaves[leaves_intersection[0]],
                                                        time,
                                                        ))
