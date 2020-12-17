@@ -133,7 +133,8 @@ def handle_message(event):
                                                        time,
                                                        period_intersection[0]))
 
-            reply_text = reply_text.T.to_string(index=False)
+            reply_text = reply_text.T.to_string(
+                index=False, justify='match-parent')
             # reply_text = reply_text.style.hide_index()
 
         else:
@@ -143,7 +144,8 @@ def handle_message(event):
                                                        time,
                                                        ))
 
-            reply_text = reply_text.T.to_string(index=False)
+            reply_text = reply_text.T.to_string(
+                index=False, justify='match-parent')
             # reply_text = reply_text.style.hide_index()
 
         # "姓名: "+m[0][1]+"\n" + \
