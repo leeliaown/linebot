@@ -133,7 +133,8 @@ def handle_message(event):
                                                        time,
                                                        period_intersection[0]))
 
-            reply_text = reply_text.to_string(index_names=False)
+            # reply_text = reply_text.to_string(index_names=False)
+            reply_text = reply_text.style.hide_index()
 
         else:
             reply_text = pd.DataFrame(index=cols,
@@ -142,7 +143,8 @@ def handle_message(event):
                                                        time,
                                                        ))
 
-            reply_text = reply_text.to_string(index_names=False)
+            # reply_text = reply_text.to_string(index_names=False)
+            reply_text = reply_text.style.hide_index()
 
         # "姓名: "+m[0][1]+"\n" + \
         #              "假別: "+m[2][1]+"\n" + \
