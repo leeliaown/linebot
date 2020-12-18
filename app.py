@@ -174,11 +174,11 @@ def handle_message(event):
         # if file does not exist write header
         if not os.path.isfile('test.csv'):
             reply_text.to_csv('test.csv', encoding='big5', index=False)
-            reply_text = reply_text.to_string()
+            # reply_text = reply_text.to_string()
         else:  # else it exists so append without writing the header
             reply_text.to_csv('test.csv', mode='a', header=False,
                               encoding='big5', index=False)
-            reply_text = reply_text.to_string()
+            # reply_text = reply_text.to_string()
 
     if (text == 'csv'):
 
