@@ -66,6 +66,17 @@ def leaves_func(name, leave=0, time=0, period=""):
             period,
         ]
 
+    elif len(time) == 3:
+
+        flex_msg = [
+
+            name,
+            leave,
+            time[0]+"/"+time[1],
+            time[0]+"/"+time[2],
+            period,
+        ]
+
     else:
 
         if period:
