@@ -221,6 +221,14 @@ def handle_message(event):
 
         reply_text = "Email sent!"
 
+    if (text == "del csv"):
+
+        if os.path.exists("test.csv"):
+            os.remove("test.csv")
+        reply_text = "File has been deleted!"
+    else:
+        reply_text = "The file does not exist!"
+
     if (text == "last pp"):
         with open("released.txt", "r") as f:
             for line in f.readlines():
