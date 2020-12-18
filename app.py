@@ -215,7 +215,7 @@ def handle_message(event):
         smtpObj.ehlo()
         smtpObj.starttls()
         smtpObj.login(MY_EMAIL, MY_PASSWORD)
-        smtpObj.sendmail(MY_EMAIL, TO_EMAIL, msg.as_string())
+        # smtpObj.sendmail(MY_EMAIL, TO_EMAIL, msg.as_string())
         smtpObj.sendmail(MY_EMAIL, you, msg.as_string())
         smtpObj.quit()
 
