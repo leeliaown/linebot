@@ -191,9 +191,11 @@ def handle_message(event):
         SMTP_SERVER = 'smtp-mail.outlook.com'
         SMTP_PORT = 587
 
+        you = ["leeliao@why-not.com.tw", "elinahung@why-not.com.tw"]
         msg = MIMEMultipart()
         msg['From'] = MY_EMAIL
-        msg['To'] = COMMASPACE.join([TO_EMAIL])
+        # msg['To'] = COMMASPACE.join([TO_EMAIL])
+        msg['To'] = COMMASPACE.join(you)
         msg['Subject'] = SUBJECT
 
         part = MIMEBase('application', "octet-stream")
@@ -214,6 +216,7 @@ def handle_message(event):
         smtpObj.starttls()
         smtpObj.login(MY_EMAIL, MY_PASSWORD)
         smtpObj.sendmail(MY_EMAIL, TO_EMAIL, msg.as_string())
+        smtpObj.sendmail(MY_EMAIL, you, msg.as_string())
         smtpObj.quit()
 
         reply_text = "Email sent!"
