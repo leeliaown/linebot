@@ -172,11 +172,11 @@ def handle_message(event):
             # reply_text = reply_text.style.hide_index()
         reply_text = reply_text.T
         # if file does not exist write header
-        if not os.path.isfile('test.csv'):
-            reply_text.to_csv('test.csv', encoding='big5', index=False)
+        if not os.path.isfile('/app/test.csv'):
+            reply_text.to_csv('/app/test.csv', encoding='big5', index=False)
             # reply_text = reply_text.to_string()
         else:  # else it exists so append without writing the header
-            reply_text.to_csv('test.csv', mode='a', header=False,
+            reply_text.to_csv('/app/test.csv', mode='a', header=False,
                               encoding='big5', index=False)
             # reply_text = reply_text.to_string()
 
@@ -184,7 +184,7 @@ def handle_message(event):
 
         SUBJECT = 'Subject string'
         FILENAME = 'leaves_statistic.csv'
-        FILEPATH = 'test.csv'
+        FILEPATH = '/app/test.csv'
         MY_EMAIL = 'leeliao@why-not.com.tw'
         MY_PASSWORD = 'JordaN72929'
         TO_EMAIL = "leeliao@why-not.com.tw"
@@ -223,11 +223,12 @@ def handle_message(event):
 
     if (text == "del csv"):
 
-        if os.path.exists("test.csv"):
-            os.remove("test.csv")
-        reply_text = "File has been deleted!"
-    else:
-        reply_text = "The file does not exist!"
+        if os.path.exists("/app/test.csv"):
+            os.remove("/app/test.csv")
+            reply_text = "File has been deleted!"
+
+        else:
+            reply_text = "The file does not exist!"
 
     if (text == "last pp"):
         with open("released.txt", "r") as f:
