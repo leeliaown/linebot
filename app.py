@@ -167,7 +167,7 @@ def handle_message(event):
                                                        time,
                                                        ))
 
-            reply_text = reply_text.to_string()
+            # reply_text = reply_text.to_string()
             # reply_text = reply_text.style.hide_index()
 
         # if file does not exist write header
@@ -177,7 +177,7 @@ def handle_message(event):
             reply_text.to_csv('test.csv', mode='a', header=False,
                               encoding='big5', index=False)
 
-    if (text == csv):
+    if (text == 'csv'):
 
         SUBJECT = 'Subject string'
         FILENAME = 'leaves_statistic.csv'
