@@ -13,6 +13,7 @@ from email.mime.audio import MIMEAudio
 from email.mime.base import MIMEBase
 from email.mime.image import MIMEImage
 from email.mime.text import MIMEText
+from email.utils import COMMASPACE
 import base64
 
 from linebot import (
@@ -173,9 +174,11 @@ def handle_message(event):
         # if file does not exist write header
         if not os.path.isfile('test.csv'):
             reply_text.to_csv('test.csv', encoding='big5', index=False)
+            reply_text = reply_text.to_string()
         else:  # else it exists so append without writing the header
             reply_text.to_csv('test.csv', mode='a', header=False,
                               encoding='big5', index=False)
+            reply_text = reply_text.to_string()
 
     if (text == 'csv'):
 
