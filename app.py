@@ -1,7 +1,19 @@
+# -*-coding: utf-8-*-
+
 import os
 from flask import Flask, request, abort
 import pandas as pd
 import re
+import smtplib
+import mimetypes
+from email.mime.multipart import MIMEMultipart
+from email import encoders
+from email.message import Message
+from email.mime.audio import MIMEAudio
+from email.mime.base import MIMEBase
+from email.mime.image import MIMEImage
+from email.mime.text import MIMEText
+import base64
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -158,11 +170,48 @@ def handle_message(event):
             reply_text = reply_text.to_string()
             # reply_text = reply_text.style.hide_index()
 
-        # "姓名: "+m[0][1]+"\n" + \
-        #              "假別: "+m[2][1]+"\n" + \
-        #              "請假起始日: "+m[1][1][0:-2]+"\n" + \
-        #              "請假迄止日: "+m[1][1][0:-2]+"\n" + \
-        #              "時段: "+m[1][1][-2:]
+        # if file does not exist write header
+        if not os.path.isfile('test.csv'):
+            reply_text.to_csv('test.csv', encoding='big5', index=False)
+        else:  # else it exists so append without writing the header
+            reply_text.to_csv('test.csv', mode='a', header=False,
+                              encoding='big5', index=False)
+
+    if (text == csv):
+
+        SUBJECT = 'Subject string'
+        FILENAME = 'leaves_statistic.csv'
+        FILEPATH = 'test.csv'
+        MY_EMAIL = 'leeliao@why-not.com.tw'
+        MY_PASSWORD = 'JordaN72929'
+        TO_EMAIL = "leeliao@why-not.com.tw"
+        SMTP_SERVER = 'smtp-mail.outlook.com'
+        SMTP_PORT = 587
+
+        msg = MIMEMultipart()
+        msg['From'] = MY_EMAIL
+        msg['To'] = COMMASPACE.join([TO_EMAIL])
+        msg['Subject'] = SUBJECT
+
+        part = MIMEBase('application', "octet-stream")
+
+        part.add_header('Content-Transfer-Encoding', 'base64')
+        part.add_header('Content-Disposition', 'attachment', filename=FILENAME)
+
+        #fp = open(pdf, 'rb')
+        fp = open(FILEPATH, "rb")
+
+        # str(base64.encodebytes(fp.read()),'ascii')
+        part.set_payload(str(base64.encodebytes(fp.read()), 'ascii'))
+        fp.close()
+        msg.attach(part)
+
+        smtpObj = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
+        smtpObj.ehlo()
+        smtpObj.starttls()
+        smtpObj.login(MY_EMAIL, MY_PASSWORD)
+        smtpObj.sendmail(MY_EMAIL, TO_EMAIL, msg.as_string())
+        smtpObj.quit()
 
     if (text == "last pp"):
         with open("released.txt", "r") as f:
