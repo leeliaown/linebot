@@ -170,7 +170,7 @@ def handle_message(event):
 
             # reply_text = reply_text.to_string()
             # reply_text = reply_text.style.hide_index()
-
+        reply_text = reply_text.T
         # if file does not exist write header
         if not os.path.isfile('test.csv'):
             reply_text.to_csv('test.csv', encoding='big5', index=False)
@@ -215,6 +215,8 @@ def handle_message(event):
         smtpObj.login(MY_EMAIL, MY_PASSWORD)
         smtpObj.sendmail(MY_EMAIL, TO_EMAIL, msg.as_string())
         smtpObj.quit()
+
+        reply_text = "Email sent!"
 
     if (text == "last pp"):
         with open("released.txt", "r") as f:
