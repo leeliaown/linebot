@@ -128,25 +128,25 @@ def handle_message(event):
             #              "請假迄止日: "+k[3]+"\n" +\
             #              "時段: "+k[4]
             reply_text = pd.DataFrame(index=cols,
-                                      data=leaves_func(name[1][0],
+                                      data=leaves_func(m[1][3:],
                                                        leaves[leaves_intersection[0]],
                                                        time,
                                                        period_intersection[0]))
 
-            reply_text = reply_text.T.to_string(
-                index=False, justify='right')
-            # reply_text = reply_text.style.hide_index()
+            # reply_text = reply_text.T.to_string(
+            #     index=False, justify='right')
+            reply_text = reply_text.style.hide_index()
 
         else:
             reply_text = pd.DataFrame(index=cols,
-                                      data=leaves_func(name[1][0],
+                                      data=leaves_func(m[1][3:],
                                                        leaves[leaves_intersection[0]],
                                                        time,
                                                        ))
 
-            reply_text = reply_text.T.to_string(
-                index=False, justify='right')
-            # reply_text = reply_text.style.hide_index()
+            # reply_text = reply_text.T.to_string(
+            #     index=False, justify='right')
+            reply_text = reply_text.style.hide_index()
 
         # "姓名: "+m[0][1]+"\n" + \
         #              "假別: "+m[2][1]+"\n" + \
