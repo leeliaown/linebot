@@ -191,7 +191,7 @@ def handle_message(event):
                            (copy_list))
             conn.commit()
             count = cursor.rowcount
-            reply_text = f"{count} Record inserted successfully into mobile table"
+            # reply_text = f"{count} Record inserted successfully into mobile table"
             cursor.close()
             conn.close()
 
@@ -214,7 +214,7 @@ def handle_message(event):
                            (copy_list))
             conn.commit()
             count = cursor.rowcount
-            reply_text = f"{count} Record inserted successfully into mobile table"
+            # reply_text = f"{count} Record inserted successfully into mobile table"
             cursor.close()
             conn.close()
             # reply_text = reply_text.to_string()
