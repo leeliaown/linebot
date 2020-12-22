@@ -246,7 +246,7 @@ def handle_message(event):
         SMTP_SERVER = 'smtp-mail.outlook.com'
         SMTP_PORT = 587
 
-        you = ["leeliao@why-not.com.tw"]
+        you = ["leeliao@why-not.com.tw", "elinahung@why-not.com.tw"]
 
         # "elinahung@why-not.com.tw"
 
