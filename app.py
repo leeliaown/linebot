@@ -213,7 +213,7 @@ def handle_message(event):
         ddd = postgresql_to_dataframe(
             "select * from leaves_statistic", column_names)
 # if not os.path.isfile("/Users/lee/Desktop/test.csv"):
-        ddd.to_csv("test.csv", encoding='big5', index=False)
+        ddd.to_csv("/app/test.csv", encoding='big5', index=False)
         # ddd
 
         SUBJECT = 'Subject string'
