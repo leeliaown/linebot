@@ -179,8 +179,7 @@ def handle_message(event):
                                                        time,
                                                        period_intersection[0]))
 
-            DATABASE_URL = os.popen(
-                'heroku config:get DATABASE_URL -a wn-allot-1').read()[:-1]
+            DATABASE_URL = os.environ['DATABASE_URL']
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
             cursor = conn.cursor()
             copy_list = leaves_func(m[1][3:],
@@ -205,8 +204,7 @@ def handle_message(event):
                                                        leaves[leaves_intersection[0]],
                                                        time,
                                                        ))
-            DATABASE_URL = os.popen(
-                'heroku config:get DATABASE_URL -a wn-allot-1').read()[:-1]
+            DATABASE_URL = os.environ['DATABASE_URL']
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
             cursor = conn.cursor()
             copy_list = leaves_func(m[1][3:],
