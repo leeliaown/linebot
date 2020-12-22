@@ -172,16 +172,29 @@ def handle_message(event):
                         )
 
         if period_intersection:
-            # reply_text = "姓名: "+k[0]+"\n" +\
-            #              "假別: "+k[1]+"\n" +\
-            #              "請假起始日: "+k[2]+"\n" +\
-            #              "請假迄止日: "+k[3]+"\n" +\
-            #              "時段: "+k[4]
+
             reply_text = pd.DataFrame(index=cols,
                                       data=leaves_func(m[1][3:],
                                                        leaves[leaves_intersection[0]],
                                                        time,
                                                        period_intersection[0]))
+
+            DATABASE_URL = os.popen(
+                'heroku config:get DATABASE_URL -a wn-allot-1').read()[:-1]
+            conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+            cursor = conn.cursor()
+            copy_list = leaves_func(m[1][3:],
+                                    leaves[leaves_intersection[0]],
+                                    time,
+                                    period_intersection[0])
+
+            cursor.execute("INSERT INTO leaves_statistic VALUES (%s, %s, %s, %s, %s)",
+                           (copy_list))
+            conn.commit()
+            count = cursor.rowcount
+            reply_text = f"{count} Record inserted successfully into mobile table"
+            cursor.close()
+            conn.close()
 
             # reply_text = reply_text.to_string()
             # reply_text = reply_text.style.hide_index()
@@ -192,29 +205,33 @@ def handle_message(event):
                                                        leaves[leaves_intersection[0]],
                                                        time,
                                                        ))
-
+            DATABASE_URL = os.popen(
+                'heroku config:get DATABASE_URL -a wn-allot-1').read()[:-1]
+            conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+            cursor = conn.cursor()
+            copy_list = leaves_func(m[1][3:],
+                                    leaves[leaves_intersection[0]],
+                                    time)
+            cursor.execute("INSERT INTO leaves_statistic VALUES (%s, %s, %s, %s, %s)",
+                           (copy_list))
+            conn.commit()
+            count = cursor.rowcount
+            reply_text = f"{count} Record inserted successfully into mobile table"
+            cursor.close()
+            conn.close()
             # reply_text = reply_text.to_string()
             # reply_text = reply_text.style.hide_index()
-        reply_text = reply_text.T
+        # reply_text = reply_text.T
         # if file does not exist write header
-        if not os.path.isfile('/app/test.csv'):
-            reply_text.to_csv('/app/test.csv', encoding='big5', index=False)
-            # reply_text = reply_text.to_string()
-        else:  # else it exists so append without writing the header
-            reply_text.to_csv('/app/test.csv', mode='a', header=False,
-                              encoding='big5', index=False)
-            # reply_text = reply_text.to_string()
+        # if not os.path.isfile('/app/test.csv'):
+        #     reply_text.to_csv('/app/test.csv', encoding='big5', index=False)
+        # reply_text = reply_text.to_string()
+        # else:  # else it exists so append without writing the header
+        #     reply_text.to_csv('/app/test.csv', mode='a', header=False,
+        #                       encoding='big5', index=False)
+        # reply_text = reply_text.to_string()
 
     if (text == 'csv'):
-
-        column_names = ["姓名", "假別", "請假起始日", "請假迄止日", "時段"]
-
-# Execute the "SELECT *" query
-        ddd = postgresql_to_dataframe(
-            "select * from leaves_statistic", column_names)
-# if not os.path.isfile("/Users/lee/Desktop/test.csv"):
-        ddd.to_csv("/app/test.csv", encoding='big5', index=False)
-        # ddd
 
         SUBJECT = 'Subject string'
         FILENAME = 'leaves_statistic.csv'
@@ -240,7 +257,7 @@ def handle_message(event):
         part.add_header('Content-Transfer-Encoding', 'base64')
         part.add_header('Content-Disposition', 'attachment', filename=FILENAME)
 
-        #fp = open(pdf, 'rb')
+        # fp = open(pdf, 'rb')
         fp = open(FILEPATH, "rb")
 
         # str(base64.encodebytes(fp.read()),'ascii')
