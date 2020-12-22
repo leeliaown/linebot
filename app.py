@@ -212,7 +212,7 @@ def handle_message(event):
             cursor.execute("INSERT INTO leaves_statistic VALUES (%s, %s, %s, %s, %s)",
                            (copy_list))
             conn.commit()
-            count = cursor.rowcount
+            # count = cursor.rowcount
             # reply_text = f"{count} Record inserted successfully into mobile table"
             cursor.close()
             conn.close()
@@ -246,7 +246,7 @@ def handle_message(event):
         SMTP_SERVER = 'smtp-mail.outlook.com'
         SMTP_PORT = 587
 
-        you = ["leeliao@why-not.com.tw", ]
+        you = ["leeliao@why-not.com.tw"]
 
         # "elinahung@why-not.com.tw"
 
@@ -279,14 +279,35 @@ def handle_message(event):
 
         reply_text = "Email sent!"
 
-    if (text == "del csv"):
+    if (text == "reset db"):
 
-        if os.path.exists("/app/test.csv"):
-            os.remove("/app/test.csv")
-            reply_text = "File has been deleted!"
+        reset_table = ("""DROP TABLE leaves_statistic;""")
 
-        else:
-            reply_text = "The file does not exist!"
+        create_table_query = (
+
+            """
+                CREATE TABLE leaves_statistic (
+             
+                    name_db TEXT NOT NULL,
+                    leaves_db VARCHAR(255) NOT NULL,
+                    start_time VARCHAR(255) NOT NULL,
+                    end_time VARCHAR(255) NOT NULL,
+                    period_db VARCHAR(255) NOT NULL
+             
+                );
+            """
+
+        )
+        DATABASE_URL = os.environ['DATABASE_URL']
+        conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+        cursor = conn.cursor()
+        cursor.execute(reset_table)
+        conn.commit()
+        cursor.execute(create_table_query)
+        conn.commit()
+        cursor.close()
+        conn.close()
+        reply_text = "DB has been reset."
 
     else:
         # reply_text = text
