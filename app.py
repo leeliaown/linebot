@@ -123,8 +123,7 @@ def postgresql_to_dataframe(select_query, column_names):
     """
     Tranform a SELECT query into a pandas dataframe
     """
-    DATABASE_URL = os.popen(
-        'heroku config:get DATABASE_URL -a wn-allot-1').read()[:-1]
+    DATABASE_URL = os.environ['DATABASE_URL']
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     cursor = conn.cursor()
     try:
@@ -190,7 +189,7 @@ def handle_message(event):
             cursor.execute("INSERT INTO leaves_statistic VALUES (%s, %s, %s, %s, %s)",
                            (copy_list))
             conn.commit()
-            count = cursor.rowcount
+            # count = cursor.rowcount
             # reply_text = f"{count} Record inserted successfully into mobile table"
             cursor.close()
             conn.close()
@@ -230,6 +229,13 @@ def handle_message(event):
         # reply_text = reply_text.to_string()
 
     if (text == 'csv'):
+
+        column_names = ["姓名", "假別", "請假起始日", "請假迄止日", "時段"]
+
+        # Execute the "SELECT *" query
+        ddd = postgresql_to_dataframe(
+            "select * from leaves_statistic", column_names)
+        ddd.to_csv("/app/test.csv", encoding='big5', index=False)
 
         SUBJECT = 'Subject string'
         FILENAME = 'leaves_statistic.csv'
