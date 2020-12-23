@@ -70,7 +70,19 @@ cols = ['姓名', '假別', '請假起始日', '請假迄止日', '時段', ]
 
 def leaves_func(name, leave=0, time=0, period=""):
 
-    if len(time) == 4:
+    if len(time) > 4:
+
+        flex_msg = [
+
+            name,
+            leave,
+            time[0]+"/"+time[1],
+            time[4]+"/"+time[5],
+            period,
+
+        ]
+
+    elif len(time) == 4:
 
         flex_msg = [
 
