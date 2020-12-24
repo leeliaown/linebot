@@ -167,7 +167,7 @@ def handle_message(event):
         periods_set = set(periods)
         period_intersection = list(period_set.intersection(periods_set))
 
-        time = re.findall(r"\d{1,2}", text)
+        time = re.findall(r"\d{1,2}", m[2])
 
         name = re.findall(r"([a-zA-z].*(\S|\s)[a-zA-z].*)", text)
 
